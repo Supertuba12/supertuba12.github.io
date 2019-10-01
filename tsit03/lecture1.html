@@ -4,20 +4,114 @@
 <meta charset="UTF-8">
 
 <head>
-  <link rel="stylesheet" href="markdown.css">
+    <link rel="stylesheet" href="markdown.css">
 </head>
 
 <body>
-  <div style="text-align: left;">
+    <div style="text-align: left;">
         <div style="width: 50%; margin: 0 auto;">
             <h1>Lecture 1 - Principles and History</h1>
-            <div style="text-align: center;">
-                <p> This lecture introduces course material, basic crypotlogy principles,
-                    and runs through some historical ciphers and such. As such, notes from
-                    this lecture is brief.
-                </p>
-            </div>
+            <p> 
+                This lecture introduces course material, basic crypotlogy principles,
+                and runs through some historical ciphers and cipher breakthroughs. As such, 
+                notes from this lecture is brief and propbably not that important to follow up
+                on before the exam.
+            </p>
+            <br>
+            <p> 
+                Cryptography traces back to the Greek words <em>kryptos</em>, meaning <em>hidden</em> 
+                and <em>graphein</em> a verb for <em>to write</em>. Cryptography is used to hide 
+                what we call <strong>plaintext</strong> by converting it into <strong>ciphertext</strong>.
+                Some might also call ciphertext <em>cryptogram</em>. 
+            </p>
+            <br>
+            <p>
+                When converting plaintext into ciphertext we use an encryption system like DES, AES, RSA etc.
+                which all depend on a secret parameter we call the <em>key</em>. Parties that wish
+                to communicate can use the same key, a <em>symmetric cryptosystem</em>. An example of such is 
+                AES. They can also use different keys, also known as a asymmetric cryptosystem. RSA is one kind
+                of asymmetric cryptosystem. It is known that symmetric systems are much faster than the
+                asymmetric kind.
+            </p>
+            <br>
+            <p>
+                A historical cipher that we know of is <em>Skytale</em>. It worked as follows:
+                <ul>
+                    <li>Wind a strip of leather (one letter wide) tight around a very specific sized stick</li>
+                    <li>Write the message as normal across the stick</li>
+                    <li>unwrap and send to the receiver who has the same kind of stick. They can then wind the 
+                        leather strip once again and read the message.
+                    </li>
+                </ul>
+                <br>
+
+                The cipher is a transposition cipher, meaning that the cipher uses only plaintext letters, 
+                but places them in a different order. More commonly one would create a fixed size matrix and
+                write the message inside the matrix one character per cell. Then just rearrange the columns.
+                <br>
+                While this cipher is easy to break (guess number of columns and then rearrange them) it served
+                its purpose back in the day to give military orders on the battlefield. By the time the cipher was
+                broken by the enemies, the order would've probably been carried out already.
+            </p>
+            <br>
+            <p>
+                Another well known cipher is the Caesar cipher. In its most basic form, each letter of the alphabet
+                is exchanged with a letter <em>x</em> positions further on in the alphabet. The ciphertext alphabet
+                is therefore just an offset x from the normal one.
+                <br>
+                This cipher is also easy to break, even by hand. 
+            </p>
+            <br>
+            <p>
+                Vigenère is a cipher that uses the Caesar cipher but in a slightly different manner. For each plaintext
+                letter a different Caesar cipher offset is used, and which one shall be used is determined by a key stream.
+                <br>
+                Vigenère comes in two forms; true Vigenère and normal Vigenère. The true Vigenère uses a key to start of the 
+                key stream and then appends the so far encrypted plaintext to the stream to encrypt the rest of the plaintext.
+                Normal Vigenère repeats the chosen key for the whole plaintext, making it the easier version to break.
+            </p>
+            <br>
+            <p>
+                Another cipher mentioned in the lecture is the simple substitution cipher. It is real simple, we build a set of
+                unique crypto characters that each correspond to a plaintext character. Then we simply substitute the message's
+                characters with its corresponding crypto character.
+                <br>
+                While the cipher is not as easy to break by hand as Caesar is with its simple offset, one can use language
+                statistics to break it. Since every crypto letter occurs as often as its plaintext counterpart, one can examine the 
+                letter distribution of both the language of the plaintext message and the crypto letter set. Then it is fairly easy to
+                make out which crypto letter corresponds to which plaintext letter.
+            </p>
+            <br>
+            <p>
+                The last cipher simple cipher covered in the lecture is the playfair cipher which is a form of substitution
+                cipher. It encrypts digrams of the plaintext and does so with a 5x5 matrix. Playfair requires you to 
+                (as all ciphers mostly do) chose a key and then fill the first cells with that key. After that fill the rest of
+                the matrix with the remaining letters of the alphabet. After that encryption is done according to a set of rules:
+                <ul>
+                    <li>If the letters of the digram appear in the same column, each letter is encrypted to the one below it. 
+                        Should the plaintext letter be in the bottom row, the encrypted letter is the one at the top (it wraps around).
+                    </li>
+                    <li>If letters appear in the same row, the letter to the right of the plaintext letter is chosen for
+                        encryption. Should the letter be at the right side of the matrix, the leftmost letter is used for encryption.
+                    </li>
+                    <li>
+                        If letters in the digram adhear to non of the former rules, that is they are in different columns and rows, then
+                        form a "rectangle" in the matrix with plaintext letters as "corners". The other two corners correspond to 
+                        the letters for encryption. Note that plaintext and encyption letters are on the same row, thus we move sideways
+                        to find the letter we want to encrypt to.
+                    </li>
+                </ul>
+            </p>
+            <br>
+            <p>
+                The lecture also talks in more detail about the enigma cipher used during world war II. Enigma uses the same principle as
+                Vigenère does. The key that is used is decided by which ones of the rotors are used and what their starting position should be.
+                It also uses a plugboard to to tell which letter should be exchanged. The machine supported an enourmous amount of combinations
+                making it difficult to break. Polish cryptologists were the first ones to break the enigma, and the techniques was passed onto the
+                British only two months before Germany invaded Poland. The fact that the British hade broken the enigma cipher was kept secret for
+                almost 30 years after the war had ended.
+            </p>
         </div>
-  </div>
+    </div>
 </body>
 </html>
