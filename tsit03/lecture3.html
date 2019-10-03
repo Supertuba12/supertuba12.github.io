@@ -10,9 +10,52 @@
 <body>
     <div style="text-align: left;">
         <div style="width: 75%; margin: 0 auto;">
-            <h1>Lecture - </h1>
-            
+            <h1>Lecture 3 - Stream Ciphers, Random Number Generators</h1>
+            <h2>The One Time Pad (OTP) in Short</h2>
+            <p>
+                As discussed through the recent lectures, the only theoretically secure cipher
+                that offers perfect secrecy is the OTP. However, OTP requires a <strong>truly random key</strong>, 
+                equally long as the message we're trying to send. Another problem is that we need a 
+                secure channel to transfer said key such that the recipient can decode the message. All
+                of the mentioned requirements are problems that makes it impossible to use OTP in practice.
+            </p>
+            <h2>A More Practical Approach</h2>
+            <p>
+                To still achieve good security one can opt for <strong>stream ciphers</strong>. In stream 
+                ciphers we generate a pseudo random <em>key stream</em> from a given <em>seed</em> that is
+                significantly shorter than the stream that is used to encrypt our message. To make strengthen
+                stream ciphers against exhaustive search we make sure that the set of possible seeds that we 
+                can use is substantially large; So large that the exhaustive search would take too long for it
+                to be a viable attack.
+            </p>
+            <p>
+                Stream ciphers can sometimes be viewed as weak, although this is not generally true. Stream
+                ciphers are fast, they require no fixed block size for encryption and errors will not propagate
+                through the encrypted message (which can happen in block ciphers). However, they lack any sort
+                of message integrity check. Also stream ciphers must be used with care and be followed to the 
+                letter. Any misuse and things can go south. 
+            </p>
+            <p>
+                As an example of how the integrity of a message is not checked lets imagine a bank transfer of
+                your salary. Imagine that the message, containing your salary amount, is encrypted as a stream
+                cipher. Lets assume you intercept the bank transfer, and get a hold of the encrypted message.
+                You happen to know at which position the salary is written in the bank transfer and with that
+                knowledge you know which encrypted bits corresponds to the salary numbers in the plaintext message.
+                While you can't read the plaintext, you can alter the ciphertext bits in that position, effectively
+                changing the salary amount. Since no one checks the integrity of the message, no one will ever know
+                that the amount was changed during the message transfer. 
+            </p>
+            <h2>Pseudo-Random Number Generator (PRNG)</h2>
+            <p>
+                While we can't construct a truly random number generator, we can make sufficiently good PRNGs
+                with some drawbacks. Since the sender and receiver must be able to generate the same key stream from
+                the seed, the generator itself must be deterministic. Another drawback of real-world generators is
+                that they must be finite, that is have a fixed number of states that it can produce. And being finite
+                means that eventually that generator will wrap around and revisit a state it has already been in. After
+                that, the internal states and output will repeat, making it possible to break the cipher.
+            </p>
         </div>
     </div>
 </body>
 </html>
+
