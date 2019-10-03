@@ -12,13 +12,21 @@
 .markdown code,
 .markdown blockquote,
 .markdown em,
-.markdown strong,
-.markdown code {
-  font-size: 14px;
+.markdown strong {
+  font-size: 16px;
   line-height: 20px;
   font-weight: normal;
   font-style: normal;
-  font-family: consolas, monaco, courier, "courier new", monospace;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333333;
+}
+
+.markdown code {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: normal;
+  font-style: normal;
+  font-family: 'Courier New', Courier, monospace;
   color: #333333;
 }
 .markdown h1,

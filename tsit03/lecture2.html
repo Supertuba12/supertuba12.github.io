@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Lecture 2</title>
+<meta charset="UTF-8">
+
+<head>
+    <link rel="stylesheet" href="markdown.css">
+</head>
+
+<body>
+    <div style="text-align: left;">
+        <div style="width: 50%; margin: 0 auto;">
+            <h1>Lecture 2 - Foundations and Basic Theory</h1>
+            
+            <h2>Methods to Break Ciphers</h2>
+            <p>
+                There are numerous ways to break ciphers. You can:
+                <ul>
+                    <li>
+                        Try all possible keys to find the one that decrypts. This is 
+                        referred to as an exhaustive search.
+                    </li>
+                    <li>
+                        Use statistics of sorts. It can be statistics of the alphabet that
+                        the language in question uses, digrams/trigrams , or words.
+                    </li>
+                    <li>
+                        Do calculations adjusted to the algorithm that is used to encrypt.
+                    </li>
+                </ul>
+                <br>
+                Will these methods always be successful? Probably now for all cases, some 
+                techniques are better suited for certain cryptosystems and might require certain
+                conditions in order to work. While exhaustive search will work eventually, it is
+                more often than not computationally infeasible to finish in a reasonable time.
+            </p>
+            <p>
+                There are some main attack possibilities:
+                <ul>
+                    <li>
+                        <strong>Ciphertext only</strong>. A quite common case where the attacker
+                        knows nothing more than the ciphertext itself (from interception perhaps).
+                        In these cases one could try to use plaintext properties to get the key,
+                        however this might not work for all ciphers.
+                    </li>
+                    <li>
+                        <strong>Known plaintext</strong>. The attacker might know both the plaintext
+                        and the ciphertext which can allow for simple deduction of the key in some
+                        ciphers.
+                    </li>
+                    <li>
+                        <strong>Chosen plaintext</strong>. Some ciphers have weak messages that can
+                        reveal the key just by choosing a good plaintext. There are also cases of 
+                        ciphers where one can use pairs of plaintext to reveal information about the
+                        key.
+                    </li>
+                    <li>
+                        <strong>Chosen ciphertext</strong>. Much like a chosen plaintext attack the
+                        attacker can reveal key information by choosing good ciphertext. The difference
+                        is that the attacker now looks at the decryption process instead of encryption.
+                    </li>
+                </ul>
+                From these types of attacks one can expect different results. In some cases the attacker
+                might get a hold of the entire key, a <em>complete break</em>, which is the goal of
+                the cryptanalysis. In some other cases the attacker might only achieve a partial break,
+                revealing more plaintext than before. While it is certainly not as good as a complete
+                break of the cipher, it might reveal useful information nontheless. Sometimes the attacker
+                can find cryptograms that matches some plaintext which can be useful in authentication
+                schemes. For example an attacker might find another message that gives the same RSA
+                signature as the received message. How useful that message will be is hard to say though.
+            </p>
+            
+            <h2>Remaining Topics</h2>
+            <p>
+                The lecture goes into detail about how entropy and specifically <em>Shannon entropy</em>
+                can be used to find information from an attacker's POV. There's also mentions about
+                <em>guessing entropy</em> and how it can be useful for cases when Shannon entropy does
+                not help. These topics are still to be covered. Read lectures for the information about
+                why entropy can help and the complete math.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
