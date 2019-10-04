@@ -5,8 +5,20 @@
 
 <head>
     <link rel="stylesheet" href="markdown.css">
+    <!-- Support math on older browsers -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Enable single dollar for inline math -->
+    <script type="text/x-mathjax-config">
+        MathJax = {
+            tex: {
+                inlineMath: [['$','$'], ['\\(','\\)']]
+            }
+        };
+    </script>
+    <!-- Load MathJax -->
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
 </head>
 
 <body>
@@ -61,7 +73,7 @@
                 means that eventually that generator will wrap around and revisit a state it has already been in. After
                 that, the internal states and output will repeat, making it possible to break the cipher.
             </p>
-
+            
             <p>
                 An example of a PRNG is a <strong>linear congruential generator</strong> for instance found in the C
                 library function <em>rand()</em>.  Testing mathJax $a \ne 1$
