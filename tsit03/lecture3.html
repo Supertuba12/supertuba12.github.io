@@ -76,9 +76,180 @@
             
             <p>
                 An example of a PRNG is a <strong>linear congruential generator</strong> for instance found in the C
-                library function <em>rand()</em>. 
+                library function <em>rand()</em>. Such a generator produces a sequence of numbers $x_1,x_2,...$ where
+                $$x_n = ax_{n-1} + b \pmod{m}.$$ The initial seed that is given to this generator is $x_0$, and the 
+                parameters $a$, $b$ and $m$ govern the relationship.
+            </p>
+            <p>
+                While this kind of pseudo-random number generator works for experimental purposes, it is not suitable
+                to implement one in a cryptographic application. In the late 70's it was shown that this type of PRNG
+                is highly predictable, even if the eavesdropper does not know about $a$, $b$ and $m$. In the early
+                80's even polynomial congruential generators were broken. The problem seems to be that we need a PRNG
+                that produces non-predictable bits to form a sequence. One way of doing so is with one-way functions, 
+                which will be discussed more in coming lectures. For now let's shift (ha-ha) focus to another way of
+                encrypting.
             </p>
             
+            <h2>Linear Feedback Shift Register (LFSR)</h2>
+            <p>
+                LSFRs is yet another way of doing encryption, this time using <em>linear recurrence</em> to produce a
+                sequence of bits to use for encryption and decryption. They have been a "workhorse" for military 
+                encryption for as long as electronics has existed. The main take-away from LFSRs is that they are
+                fast (in hardware) and can produce a key with a large period using very little initial information. 
+                It can be shown that given an initial vector of $m$ bits, a LFSR can produce a key with a period
+                length of $2^{m} - 1$. 
+            </p>
+            <p>
+                One disadvantage of linear feedback shift registers is that they are vulnerable to known plaintext 
+                attacks. A sequence of length $ 2m $ is sufficient enough to recover the key for a length-$m$ LFSR.
+                The <em>Berlekamp-Massey algorithm</em> can be used to find the key of a LFSR of length-$m$. 
+            </p>
+
+            <h2>Berlekamp-Massey algorithm</h2>
+            <p>
+                The following section will demonstrate how to find the shortest LFSR that gives the sequence only
+                needing $2m$ bits. The example can also be found in the slides of lecture 3 as well as in the 
+                course literature. Keep in mind that the example looks complicated, however it is really not.
+            </p>
+            <p>
+                Suppose that we have knowledge of a sequence of bits $011010111100010011010111$ that is the output
+                of a LFSR 
+                
+                $$ X_{n+m} = c_0X_n + c_1X_{n+1} + ... + c_{m-1}X_{n+m-1}. $$
+                
+                We know nothing about the length $m$ and thus, we must try different lengths until we
+                find the right one. We start with length $m=2$, since a length of 1 would produce a constant
+                sequence. Trying with $m = 2$ gives us
+
+                $$ 
+                \left\{\begin{matrix}
+                c_00 + c_11 = 1
+                \\ 
+                c_01 + c_11 = 0
+                \end{matrix}\right.
+                $$ 
+
+                $$
+                \begin{pmatrix}
+                   0 & 1\\
+                   1 & 1
+                \end{pmatrix}
+
+                \begin{pmatrix}
+                    c_0 \\
+                    c_1
+                \end{pmatrix}
+                = 
+                \begin{pmatrix}
+                    1 \\
+                    0
+                \end{pmatrix}
+                $$
+
+                $$ c_0 = 1, c_1 = 1$$
+
+                $$ 01101{\color{Royalblue}1011011011011...} $$
+            </p>
+            <p>
+                The first 5 bits in the sequence is correct, after that we have a recurring sequence $101$
+                which isn't what were looking for. Therefore we'll try with $m=3$
+
+                $$
+                \begin{pmatrix}
+                   0 & 1 & 1 \\
+                   1 & 1 & 0 \\
+                   1 & 0 & 1
+                \end{pmatrix}
+
+                \begin{pmatrix}
+                    c_0 \\
+                    c_1 \\
+                    c_2
+                \end{pmatrix}
+                = 
+                \begin{pmatrix}
+                    0 \\
+                    1 \\
+                    0
+                \end{pmatrix}
+                $$
+            </p>
+            <p>
+                Calculating the determinant for the square matrix (let's call it $A$) gives us $|A|=0$, 
+                which means that the matrix either has zero solutions or more than one. We can skip $m=3$
+                and try $m=4$ instead
+
+                $$
+                \begin{pmatrix}
+                   {\color{Red}0} & {\color{Red}1} & {\color{Red}1} & {\color{Red}0} \\
+                   1 & 1 & 0 & 1 \\
+                   1 & 0 & 1 & 0 \\
+                   0 & 1 & 0 & 1 \\
+                \end{pmatrix}
+
+                \begin{pmatrix}
+                    c_0 \\
+                    c_1 \\
+                    c_2 \\
+                    c_3
+                \end{pmatrix}
+                = 
+                \begin{pmatrix}
+                 {\color{Red}1} \\
+                 {\color{Red}0} \\
+                 {\color{Red}1} \\
+                 {\color{Red}1}
+                \end{pmatrix}
+                $$
+
+                $$ c_0 = 1, c_1 = 1, c_2 = 0, c_3 = 0 $$
+            </p>
+            <p>
+                (Fill in with an explanation for the red marked numbers in the calculation)
+                For $m > 4$ the determinant for the square matrix is 0. This is a general indicator that we should stop
+                and accept the last $m$ with non-zero determinant as the answer to the linear recurrence. It is relatively
+                easy to confim that we found the correct length $m$ by calculating the remaining bits of the sequence using
+                a LFSR with length $m$ and the comparing the sequence to the known one. Should it be that the sequences are
+                not equal, we continue to search with increasing $m$.
+            </p>
+
+            <h3>LFSRs in Stream Ciphers</h3>
+            <p>
+                LFSRs are used in some stream ciphers, although they are constructed to be non-linearly through combinations of
+                several LFSRs.  
+            </p>
+            <p>
+                A well known stream cipher that uses LFSRs is the <em>A5/1 (GSM)</em> cipher found in old mobile telephone
+                communication. It uses three LFSRs, only clocking the LFSRs that agree in the clock bit (marked orange in the
+                lecture slides). The initial state is the only thing contrbuting to the key. A5/1 has been broken. 
+            </p>
+            <p>
+                Following the A5/1 cipher, we have the A5/2 stream cipher, which is a weaker GSM. It uses four LFSRs and only clock LFSRs where the
+                majority of clock bits agree. A5/2 was broken the same month it was published in 1999, and has been prohibited
+                from implementation in mobiles since 2007 (A bit too late one could say).
+            </p>
+            <p>
+                There's also the cipher KASUMI which is a modification of MISTY (done by SAGE). KASUMI is used in UMTS, GSM 
+                (A5/3) and GPRS (GEA3). Unfortunately KASUMI be broken with a known plaintext attack. Adding insult
+                to injury, it can be done with very modest computational resources. Important to note though is that the attack
+                does not work on the designs used in UMTS, GSM and GPRS.
+            </p>
+            <p>
+                Bluetooth (E0) also uses LFSRs, specifically four of them with two 2-bit internal states. It exists attacks against
+                bluetooth with a complexity of $2^{38}$.
+            </p>
+            <p>
+                A popular stream cipher that uses LFSRs is the RC4 (ARCFOUR). It was broken in 2015 but was previously used in application
+                such as WEP, WPA, BitTorrent, Opera Mini, RDP, PDF, Skype. RC4 used in WEP has a weakness in the 40/104-bit key
+                that is concatenated with a 24-bit IV (nonce). The problem is that the concatenated bits are not large enough to avoid
+                IV repetition. RC4 is also vulnerable to related-key attacks, like when using non-random keys or badly designed key 
+                management (like in WEP).
+            </p>
+            <p>
+                SNOW 3G is a stream cipher that uses only one LFSR in combination with a more complicated finite state machine. In contrast
+                to the other ciphers mentioned in this subsection, SNOW 3G is still considered secure, and it is fast. It is part of the 
+                3GPP standard.
+            </p>
         </div>
     </div>
 </body>
