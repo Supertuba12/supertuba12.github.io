@@ -2,6 +2,8 @@
 <html lang="en">
 <title>Lecture 3</title>
 <meta charset="UTF-8">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 <head>
     <link rel="stylesheet" href="markdown.css">
@@ -17,7 +19,7 @@
                 that offers perfect secrecy is the OTP. However, OTP requires a <strong>truly random key</strong>, 
                 equally long as the message we're trying to send. Another problem is that we need a 
                 secure channel to transfer said key such that the recipient can decode the message. All
-                of the mentioned requirements are problems that makes it impossible to use OTP in practice.
+                of the mentioned requirements are problems that makes it more or less impossible to use OTP in practice.
             </p>
             <h2>A More Practical Approach</h2>
             <p>
@@ -47,13 +49,24 @@
             </p>
             <h2>Pseudo-Random Number Generator (PRNG)</h2>
             <p>
-                While we can't construct a truly random number generator, we can make sufficiently good PRNGs
-                with some drawbacks. Since the sender and receiver must be able to generate the same key stream from
+                For OTP and many other cryptosystems it is a requirement to have sequences of random bits in order to
+                do encryption. One can find randomness just by examining nature, for instance thermal noise
+                from a semiconductor resistor. The problem with natural randomness is partly that it is slow to sample
+                from such sources. Moreover, it is difficult to assure that no one else is observing us in the process
+                of sampling. So while we can't construct a truly random number generator, we can make sufficiently good 
+                ones in software instead. Such generators are often called <strong>pseudo-random</strong> or short, PRNGs.
+                Although they come with drawbacks. Since the sender and receiver must be able to generate the same key stream from
                 the seed, the generator itself must be deterministic. Another drawback of real-world generators is
                 that they must be finite, that is have a fixed number of states that it can produce. And being finite
                 means that eventually that generator will wrap around and revisit a state it has already been in. After
                 that, the internal states and output will repeat, making it possible to break the cipher.
             </p>
+
+            <p>
+                An example of a PRNG is a <strong>linear congruential generator</strong> for instance found in the C
+                library function <em>rand()</em>.  Testing mathJax $a \ne 1$
+            </p>
+            
         </div>
     </div>
 </body>
